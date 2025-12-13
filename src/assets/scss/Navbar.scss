@@ -1,0 +1,27 @@
+.header {
+  padding: 18px 20px;
+  background: #f3edf7;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 64px;
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-lang,
+    &-title {
+      font-weight: 400;
+      font-size: 22px;
+      color: $title;
+      line-height: 28px;
+    }
+    &-input {
+      width: 80%;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: $black;
+      padding: 5px;
+      border-bottom: 1px solid #c4c4c4;
+    }
+  }
+}

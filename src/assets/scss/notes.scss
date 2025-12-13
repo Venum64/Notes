@@ -1,0 +1,99 @@
+.notes {
+  margin-top: 30px;
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    &-title {
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 28px;
+      color: $title;
+    }
+    &-btn {
+      background: linear-gradient(0deg, #fffbfe, #fffbfe),
+        linear-gradient(
+          0deg,
+          rgba(103, 80, 164, 0.11),
+          rgba(103, 80, 164, 0.11)
+        );
+      box-shadow: 0px 4px 8px 3px #00000026;
+      width: 120px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 18px;
+      border-radius: 16px;
+    }
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    &.active {
+      grid-template-columns: 1fr;
+    }
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(
+      0deg,
+      rgba(103, 80, 164, 0.05),
+      rgba(103, 80, 164, 0.05)
+    );
+    box-shadow: 0px 1px 2px 0px #0000004d;
+    border-radius: 16px;
+    padding: 16px;
+    gap: 16px;
+    &-top {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      &.active {
+        flex-direction: row;
+        align-items: center;
+      }
+      &_title {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: $black;
+      }
+      &_date {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #cac4d0;
+      }
+    }
+    &-desc {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: $text;
+    }
+    &-btns {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    &-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      gap: 10px;
+      transition: 0.3s;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      text-transform: uppercase;
+    }
+  }
+}
