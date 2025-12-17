@@ -3,18 +3,15 @@ import editIcon from "../assets/img/edit.svg";
 import removeIcon from "../assets/img/remove.svg";
 import clsx from "clsx";
 
-const NotesItem = ({ view }) => {
+const NotesItem = ({ view, note }) => {
   const notesItemTop = clsx("notes__item-top", { active: !view });
   return (
     <div className="notes__item">
       <div className={notesItemTop}>
-        <h3 className="notes__item-top_title">Title</h3>
-        <p className="notes__item-top_date">07.03.2022</p>
+        <h3 className="notes__item-top_title">{note.title}</h3>
+        <p className="notes__item-top_date">{note.date}</p>
       </div>
-      <p className="notes__item-desc">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor
-      </p>
+      <p className="notes__item-desc">{note.desc}</p>
       <div className="notes__item-btns">
         <button className="notes__item-btn purple">
           <img src={editIcon} alt="" />
