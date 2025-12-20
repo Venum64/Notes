@@ -3,7 +3,7 @@ import listIcon from "../assets/img/list.svg";
 import gridIcon from "../assets/img/grid.svg";
 import clsx from "clsx";
 import NotesItem from "./NotesItem";
-const Notes = ({ notes }) => {
+const Notes = ({ notes, changeHandler }) => {
   const [view, setView] = useState(true);
   let span = view ? "Список" : "Таблица";
   let icon = view ? listIcon : gridIcon;
@@ -14,7 +14,9 @@ const Notes = ({ notes }) => {
         <div className={noteListClass}></div>
         <div className="notes">
           <div className="notes__top">
-            <h2 className="notes__top-title">{notes.length ? 'Все заметки' : 'Нет заметок'}</h2>
+            <h2 className="notes__top-title">
+              {notes.length ? "Все заметки" : "Нет заметок"}
+            </h2>
             <button className="notes__top-btn" onClick={() => setView(!view)}>
               <img src={icon} alt="" />
               <span>{span}</span>
@@ -22,7 +24,12 @@ const Notes = ({ notes }) => {
           </div>
           <div className={noteListClass}>
             {notes?.map((item) => (
-              <NotesItem view={view} key={item.id} note={item} />
+              <NotesItem
+                view={view}
+                key={item.id}
+                note={item}
+                changeHandler={changeHandler}
+              />
             ))}
           </div>
         </div>
