@@ -1,21 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { v4 } from "uuid";
 import { Bounce, toast } from "react-toastify";
+import { TodoContext, setting } from "../context/todoContext";
 
-const Modal = ({ closeModal, addOrChange, isEdit, editNote }) => {
+const Modal = ({ isEdit, editNote }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  let setting = {
-    position: "top-right",
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: false,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-    transition: Bounce,
-  };
+  const { addOrChangeNoteHandler, closeModal } = useContext(TodoContext);
+
   const add = () => {
     if (title.length > 2 && content.length > 2) {
       const item = {
@@ -25,7 +17,7 @@ const Modal = ({ closeModal, addOrChange, isEdit, editNote }) => {
         date: new Date().toLocaleDateString(),
       };
       if (editNote && isEdit) item.changed = true;
-      addOrChange(item);
+      addOrChangeNoteHandler(item);
       setTitle("");
       setContent("");
       closeModal();

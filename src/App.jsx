@@ -1,35 +1,27 @@
 import Navbar from "./components/Navbar.jsx";
-import Notes from "./components/notes.jsx";
+import Notes from "./components/Notes.jsx";
 import editIcon from "./assets/img/edit.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "./components/Modal.jsx";
 import { ToastContainer } from "react-toastify";
+import { TodoContext } from "./context/todoContext";
 
 const App = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [notes, setNotes] = useState([
-    {
-      id: 1,
-      title: "html",
-      desc: "This desc html",
-      date: new Date().toLocaleDateString(),
-    },
-    {
-      id: 2,
-      title: "css",
-      desc: "This desc css",
-      date: new Date().toLocaleDateString(),
-    },
-    {
-      id: 3,
-      title: "react",
-      desc: "This desc react",
-      date: new Date().toLocaleDateString(),
-    },
-  ]);
-  const [isEdit, setIsEdit] = useState(false);
+  const setLS = () => {
+    localStorage.notes = JSON.stringify(notes);
+  };
+  const getLS = () =>
+    localStorage.notes ? JSON.parse(localStorage.notes) : [];
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [notes, setNotes] = useState(getLS());
+  const [search, setSearch] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
   const [editNote, setEditNote] = useState(null);
+
+  const filterNotes = notes.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
   const addOrChangeNoteHandler = (note) => {
     if (editNote?.id) {
       const updateNotes = notes.map((item) => {
@@ -59,25 +51,36 @@ const App = () => {
     setEditNote(note);
   };
 
+  const delNote = (id) => {
+    const filterNotes = notes.filter((item) => item.id != id);
+    setNotes(filterNotes);
+  };
+  useEffect(() => {
+    setLS();
+  }, [notes]);
   return (
     <>
-      <Navbar />
-      <Notes notes={notes} changeHandler={changeHandler} />
+      <TodoContext
+        value={{
+          addOrChangeNoteHandler,
+          closeModal,
+          changeHandler,
+          delNote,
+          search,
+          setSearch,
+        }}
+      >
+        <Navbar />
+        <Notes notes={filterNotes} />
 
-      {isModalOpen && (
-        <Modal
-          closeModal={closeModal}
-          addOrChange={addOrChangeNoteHandler}
-          isEdit={isEdit}
-          editNote={editNote}
-        />
-      )}
-      {!isModalOpen && (
-        <button className="addBtn" onClick={() => openModal()}>
-          <img src={editIcon} alt="" />
-        </button>
-      )}
-      <ToastContainer/>
+        {isModalOpen && <Modal isEdit={isEdit} editNote={editNote} />}
+        {!isModalOpen && (
+          <button className="addBtn" onClick={() => openModal()}>
+            <img src={editIcon} alt="" />
+          </button>
+        )}
+        <ToastContainer />
+      </TodoContext>
     </>
   );
 };
