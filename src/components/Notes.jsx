@@ -4,12 +4,16 @@ import gridIcon from "../assets/img/grid.svg";
 import clsx from "clsx";
 import NotesItem from "./NotesItem";
 import { TodoContext } from "../context/todoContext";
+import { useTranslation } from "react-i18next";
+
 const Notes = ({ notes }) => {
+  const { t } = useTranslation();
   const [view, setView] = useState(true);
-  let span = view ? "Список" : "Таблица";
+  let span = view ? t('list') : t("grid");
   let icon = view ? listIcon : gridIcon;
   const noteListClass = clsx("notes__list", { active: !view });
   const { search } = useContext(TodoContext);
+
   return (
     <main className="main">
       <div className="container">
@@ -18,10 +22,10 @@ const Notes = ({ notes }) => {
           <div className="notes__top">
             <h2 className="notes__top-title">
               {notes.length && search.length > 0
-                ? "Поиск"
+                ? t('search')
                 : notes.length
-                ? "Все заметки"
-                : "Нет заметок"}
+                ? t('allNotes')
+                : t('noNotes')}
             </h2>
             <button className="notes__top-btn" onClick={() => setView(!view)}>
               <img src={icon} alt="" />

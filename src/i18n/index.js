@@ -21,7 +21,7 @@ i18next
   .init({
     resources,
     lng: "ru",
-    fallbackLng: "en",
+    fallbackLng: "ru",
     debug: true,
     interpolation: {
       escapeValue: false,

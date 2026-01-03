@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { v4 } from "uuid";
 import { Bounce, toast } from "react-toastify";
 import { TodoContext, setting } from "../context/todoContext";
+import { useTranslation } from "react-i18next";
 
 const Modal = ({ isEdit, editNote }) => {
+  const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { addOrChangeNoteHandler, closeModal } = useContext(TodoContext);
@@ -22,19 +24,19 @@ const Modal = ({ isEdit, editNote }) => {
       setContent("");
       closeModal();
       if (editNote) {
-        toast.info("Заметка изменена", setting);
+        toast.info(t("noteWasEdit"), setting);
       } else {
-        toast.success("Заметка добавлена", setting);
+        toast.success(t("noteWasAdded"), setting);
       }
     } else {
-      toast.error("Недостаточно кол-ва символов", setting);
+      toast.error(t("error"), setting);
     }
   };
   return (
     <div className="modal" onClick={() => closeModal()}>
       <div className="modal__block" onClick={(e) => e.stopPropagation()}>
         <h2 className="modal__block-title">
-          {!isEdit ? "Добавить заметку" : "Изменить заметку"}
+          {!isEdit ? t("addNote") : t("changeNote")}
         </h2>
         <div className="modal__block-fields">
           <label>
@@ -56,10 +58,10 @@ const Modal = ({ isEdit, editNote }) => {
         </div>
         <div className="modal__block-btns">
           <button className="modal__block-btn red" onClick={() => closeModal()}>
-            Отмена
+            {t("cansel")}
           </button>
           <button className="modal__block-btn purple" onClick={() => add()}>
-            {!isEdit ? "Добавить заметку" : "Изменить заметку"}
+            {!isEdit ? t("add") : t("change")}
           </button>
         </div>
       </div>
